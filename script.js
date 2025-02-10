@@ -9,15 +9,9 @@ const gameBoard = (function() {
     return {pick, board}
 })();
 
-function player(name) {
-    const userName = name;
-    const userMark = "x";
-    console.log(`Username: ${userName}, Mark: ${userMark}`)
-    return {userName, userMark}
-}
 
 function game() {  
-    pick()
+
 
     function lines (mark) {
         const markIndex =[];
@@ -28,40 +22,59 @@ function game() {
         }
         return markIndex.toString()
     }
-    
-    function pick() {      
-        if(lines("x") === "0,1,2" || lines("x") === "3,4,5" || lines("x") === "6,7,8" || lines("x") === "0,4,8" || lines("x") === "2,4,6"){
-            console.log('You win!')
-        } else if(lines("o") === "0,1,2" || lines("o") === "3,4,5" || lines("o") === "6,7,8" || lines("o") === "0,4,8" || lines("o") === "2,4,6")  {
-            console.log('Computer wins!')
-        } else if (gameBoard.board().every(isNaN)){
-            console.log("it's a tie")
-        } else {
-            const pick = prompt("pick your spot:");
-            gameBoard.pick(pick, "x")
-            comPick()
-        }
 
+    function cPick() {
+        const computerPick = Math.floor(Math.random()*9)
+        return computerPick
     }
 
-    function comPick(){
-        if(lines("x") === "0,1,2" || lines("x") === "3,4,5" || lines("x") === "6,7,8" || lines("x") === "0,4,8" || lines("x") === "2,4,6"){
-            console.log('You win!')
-        } else if(lines("o") === "0,1,2" || lines("o") === "3,4,5" || lines("o") === "6,7,8" || lines("o") === "0,4,8" || lines("o") === "2,4,6")  {
-            console.log('Computer wins!')
-        } else if (gameBoard.board().every(isNaN)){
-            console.log("it's a tie")
-        } else {
-            let cPick = Math.floor(Math.random()*9);
-            if(typeof gameBoard.board()[cPick] === 'number'){
-                gameBoard.pick(cPick, "O")
-                console.log(gameBoard.board())
-                pick()
-            } else {
-                comPick()
+    function players () {
+        playerArray = [
+            {
+                id: 0,
+                name: "Player One",
+                mark: "x"
+            },
+            {
+                id: 1,
+                name: "Computer",
+                mark: "o"
             }
-        }
+        ]
+        return playerArray
     }
+
+    pick(players())
+    function pick(player) {    
+        let activePlayer = player[0]
+        let message = ""
+        if(lines("x") === "0,1,2" || lines("x") === "3,4,5" || lines("x") === "6,7,8" || lines("x") === "0,4,8" || lines("x") === "2,4,6"){
+            message = "You Win!"
+
+        } else if(lines("o") === "0,1,2" || lines("o") === "3,4,5" || lines("o") === "6,7,8" || lines("o") === "0,4,8" || lines("o") === "2,4,6")  {
+            message = "Computer Wins!"
+        } else if (gameBoard.board().every(isNaN)){
+            message = "It's a tie!"
+
+        } else {
+            if(activePlayer.id === 0) {
+                const userPick = prompt("What's your pick?")
+                gameBoard.pick(userPick, "x")
+                console.log(gameBoard.board())
+                pick(players())
+            } else if(activePlayer.id === 1){
+                console.log(cPick())
+                gameBoard.pick(cPick(), "o")
+                console.log(gameBoard.board())
+            }   
+        }
+
+        console.log(message)
+    }
+
+
+
+
 }
 
-game()
+new game()
