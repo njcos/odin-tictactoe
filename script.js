@@ -12,8 +12,6 @@ const gameBoard = (function() {
     return {pick, board, newBoard}
 })();
 
-
-
 const game = (() => {  
     const cell = document.querySelectorAll('.cell')
     const winnerBanner = document.querySelector('.winner')
@@ -107,8 +105,6 @@ const game = (() => {
         return markIndex.toString()
     }  
 
-
-
     function winner(str) {
         console.log('str')
             const message = ""
@@ -140,28 +136,6 @@ const game = (() => {
             return false
         
         }
-
-
-
-    //     console.log(lines('x'))
-    //     if (lines("x").includes("0,1,2") || lines("x").includes("3","4","5") || lines("x").includes("6,7,8") || lines("x").includes("0,4,8") || lines("x").includes("2,4,6") || lines("x").includes("0,3,6") || lines("x").includes("2,5,8") || lines("x").includes("1,4,7")){
-    //         message = "You Win!"
-    //         console.log(message)
-    //         gameOver = true;
-    //         console.log(gameOver)
-    //     } else if (lines("o") === "0,1,2" || lines("o") === "3,4,5" || lines("o") === "6,7,8" || lines("o") === "0,4,8" || lines("o") === "2,4,6" || lines("o") === "0,3,6" || lines("o") === "2,5,8" || lines("o") === "1,4,7")   {
-    //         message = "Computer Wins!"
-    //         console.log(message)
-    //         gameOver = true;
-    //         console.log(gameOver)
-    //     } else if ((lines('o') + lines('x') === "0,1,2,3,4,5,6,7,8")){
-    //         message = "It's a tie!"
-    //         console.log(message)
-    //         gameOver = true;
-    //         console.log(gameOver)            
-    // }
-
-
 
 const newGame = (() => {
     const newGame = document.querySelector('.new-game')
